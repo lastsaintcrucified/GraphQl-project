@@ -1,10 +1,14 @@
 import {Prisma} from "prisma-binding";
-
+import {fragmentReplacements} from "./resolvers/index"
 const prisma = new Prisma({
     typeDefs:"src/generated/prisma.graphql",
-    endpoint: "http://localhost:4466"
+    endpoint: "http://localhost:4466",
+    secret: "helloworld",
+    fragmentReplacements
 })
 
+
+export {prisma as default}
 // const createPostForUser = async (authorId,data) =>{
 //     const userExist = await prisma.exists.User({id:authorId})
 //     if(!userExist){
@@ -50,29 +54,29 @@ const prisma = new Prisma({
 //     console.log(JSON.stringify(data,undefined,3))
 // })
 
-const updatePostForUser = async (postId,data) =>{
-    const postExist = await prisma.exists.Post({id:postId});
-    if(!postExist){
-        throw new Error("User Not Found!");
-    }
-    const post = await prisma.mutation.updatePost({where:{
-        id:"ckinz5gm400040870u1opzg58"
-    },
-        data:{
-            ...data
-        }
-    },"{id title body author{id name}}")
+// const updatePostForUser = async (postId,data) =>{
+//     const postExist = await prisma.exists.Post({id:postId});
+//     if(!postExist){
+//         throw new Error("User Not Found!");
+//     }
+//     const post = await prisma.mutation.updatePost({where:{
+//         id:"ckinz5gm400040870u1opzg58"
+//     },
+//         data:{
+//             ...data
+//         }
+//     },"{id title body author{id name}}")
     
-    return post;
+//     return post;
     
-}
+// }
 
-updatePostForUser("ckinz5gm400040870u1opzg58",{
-    published:false,
-    body:"Changed post body lorem ippsuh kthe name of our county isb mhscvsb v",
-    title:"Hey"
-}).then((post)=>{
-    console.log(JSON.stringify(post,undefined,2))
-}).catch((error)=>{
-    console.log(error)
-})
+// updatePostForUser("ckinz5gm400040870u1opzg58",{
+//     published:false,
+//     body:"Changed post body lorem ippsuh kthe name of our county isb mhscvsb v",
+//     title:"Hey"
+// }).then((post)=>{
+//     console.log(JSON.stringify(post,undefined,2))
+// }).catch((error)=>{
+//     console.log(error)
+// })
